@@ -9,7 +9,16 @@ public class AppDbContext : DbContext
     {
         
     }
-    
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<Product>(entity =>
+        {
+            entity.Property( p => p.Price ).HasColumnType("decimal(18,2)");
+        });
+    }
+
     public DbSet<Category> Categories { get; set; }
     public DbSet<Product> Products { get; set; }
 }

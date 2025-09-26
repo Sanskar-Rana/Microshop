@@ -1,0 +1,2 @@
+2025-21-26 14:21:27.736 +02:00 [{Level:u3] Unable to resolve service for type 'Microshop.Catalog.Infrastructure.Repositories.CategoryRepository' while attempting to activate 'Microshop.Catalog.Presentation.Controllers.CategoryController'.
+2025-21-26 14:21:27.961 +02:00 [{Level:u3] Unable to resolve service for type 'Microshop.Catalog.Infrastructure.Repositories.CategoryRepository' while attempting to activate 'Microshop.Catalog.Presentation.Controllers.CategoryController'.
