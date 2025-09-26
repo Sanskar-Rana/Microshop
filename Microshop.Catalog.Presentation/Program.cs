@@ -1,3 +1,7 @@
+using FluentValidation;
+using Microshop.Catalog.Domain.Entities;
+using Microshop.Catalog.Domain.Validators;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+// Validator
+builder.Services.AddScoped<IValidator<Product>, ProductValidator>();
+builder.Services.AddScoped<IValidator<Category>, CategoryValidator>();
 
 var app = builder.Build();
 
