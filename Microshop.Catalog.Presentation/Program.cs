@@ -5,6 +5,7 @@ using Microshop.Catalog.Infrastructure.Data;
 using Microshop.Catalog.Infrastructure.DepedencyInjection;
 using Microshop.Catalog.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Micrsoshop.Catalog.Application.Dtos.Category;
 using Micrsoshop.Catalog.Application.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,9 +23,12 @@ builder.Services.AddDbContext<AppDbContext>(opts =>
     opts.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 // Validator
 builder.Services.AddScoped<IValidator<Product>, ProductValidator>();
 builder.Services.AddScoped<IValidator<Category>, CategoryValidator>();
+builder.Services.AddScoped<IValidator<CategoryCreateDto>, CategoryCreateDtoValidator>();
 
 //builder.Services.AddScoped<IProductRepository, ProductRepository>();
 //builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();

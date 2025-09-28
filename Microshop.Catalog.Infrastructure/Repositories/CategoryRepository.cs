@@ -48,7 +48,7 @@ public class CategoryRepository : ICategoryRepository
     {
         try
         {
-            var category = await _dbContext.Categories.FindAsync(id);
+            var category = await _dbContext.Categories.FirstOrDefaultAsync(x => x.Id == id);
             return category is not null ? category : null!;
         }
         catch (Exception ex)
@@ -88,11 +88,11 @@ public class CategoryRepository : ICategoryRepository
     {
         try
         {
-            var category = await FindByIdAsync(model.Id);
-            if(category is null)
-                return new Response(false, $"{model.Name} not found");
-            _dbContext.Entry(category).State = EntityState.Detached;
-            _dbContext.Categories.Update(category);
+           // var category = await FindByIdAsync(model.Id);
+           // if(category is null)
+           //     return new Response(false, $"{model.Name} not found");
+           // _dbContext.Entry(model).State = EntityState.Detached;
+            _dbContext.Categories.Update(model);
             await _dbContext.SaveChangesAsync();
 
             return new Response(true, $"{model.Name} is updated successfully");
