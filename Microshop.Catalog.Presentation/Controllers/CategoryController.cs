@@ -1,7 +1,10 @@
+using FluentValidation;
 using Microshop.Catalog.Domain.Entities;
 using Microshop.Catalog.Domain.Validators;
 using Microshop.Catalog.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Micrsoshop.Catalog.Application.Interfaces;
 
 namespace Microshop.Catalog.Presentation.Controllers;
 
@@ -9,9 +12,9 @@ namespace Microshop.Catalog.Presentation.Controllers;
 [Route("api/[controller]")]
 public class CategoryController : ControllerBase
 {
-    private readonly CategoryRepository _repository;
-    private readonly CategoryValidator _validator;
-    public CategoryController(CategoryRepository repository, CategoryValidator validator)
+    private readonly ICategoryRepository _repository;
+    private readonly IValidator<Category> _validator;
+    public CategoryController(ICategoryRepository repository, IValidator<Category> validator)
     {
         _repository = repository;
         _validator = validator;

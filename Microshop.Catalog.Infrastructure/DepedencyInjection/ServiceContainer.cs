@@ -17,7 +17,8 @@ public static class ServiceContainer
         SharedServiceContainer.AddSharedServices<AppDbContext>(services, configuration, configuration["MySerilog: FineName"]!);
         
         //Create Dependency Injection (DI)
-        services.AddScoped<ICategory, CategoryRepository>();
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
         return services;
     }
 

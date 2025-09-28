@@ -3,7 +3,7 @@ using Microshop.SharedLibrary.Interface;
 
 namespace Micrsoshop.Catalog.Application.Interfaces;
 
-public interface IProduct : IGenericInterface<Product>
+public interface ICategoryRepository : IGenericInterface<Category>
 {
     
 }

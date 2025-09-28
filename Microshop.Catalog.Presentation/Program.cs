@@ -3,7 +3,9 @@ using Microshop.Catalog.Domain.Entities;
 using Microshop.Catalog.Domain.Validators;
 using Microshop.Catalog.Infrastructure.Data;
 using Microshop.Catalog.Infrastructure.DepedencyInjection;
+using Microshop.Catalog.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Micrsoshop.Catalog.Application.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +26,9 @@ builder.Services.AddDbContext<AppDbContext>(opts =>
 builder.Services.AddScoped<IValidator<Product>, ProductValidator>();
 builder.Services.AddScoped<IValidator<Category>, CategoryValidator>();
 
+//builder.Services.AddScoped<IProductRepository, ProductRepository>();
+//builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+
 var app = builder.Build();
 app.UseInfrastructure();
 // Configure the HTTP request pipeline.
@@ -33,6 +38,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.MapOpenApi();
 }
+
+app.UseSwagger();
+app.UseSwaggerUI();
+app.MapOpenApi();
 
 app.UseHttpsRedirection();
 

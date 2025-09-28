@@ -8,7 +8,7 @@ using Micrsoshop.Catalog.Application.Interfaces;
 
 namespace Microshop.Catalog.Infrastructure.Repositories;
 
-public class CategoryRepository : ICategory
+public class CategoryRepository : ICategoryRepository
 {
     private readonly  AppDbContext _dbContext;
 
