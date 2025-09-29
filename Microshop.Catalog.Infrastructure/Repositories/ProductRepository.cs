@@ -20,7 +20,7 @@ public class ProductRepository : IProductRepository
     {
         try
         {
-            var product = await _dbContext.Products.Where(predicate).FirstOrDefaultAsync();
+            var product = await _dbContext.Products.Where(predicate).Include(c => c.Category).FirstOrDefaultAsync();
             return product is not null ? product : null;
         }
         catch (Exception ex)
@@ -34,7 +34,7 @@ public class ProductRepository : IProductRepository
     {
         try
         {
-            var products = await _dbContext.Products.ToListAsync();
+            var products = await _dbContext.Products.Include(c => c.Category).ToListAsync();
             return products is not null ? products : null!;
         }
         catch (Exception ex)
@@ -88,10 +88,10 @@ public class ProductRepository : IProductRepository
     {
         try
         {
-            var product = await FindByIdAsync(model.Id);
-            if(product is null)
-                return new Response(false, "Product not found");
-            _dbContext.Products.Update(product);
+            // var product = await FindByIdAsync(model.Id);
+            // if(product is null)
+            //     return new Response(false, "Product not found");
+            _dbContext.Products.Update(model);
             await _dbContext.SaveChangesAsync();
 
             return new Response(true, $"{model.Name} is updated succesfully");

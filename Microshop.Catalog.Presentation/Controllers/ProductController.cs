@@ -1,8 +1,10 @@
+using AutoMapper;
 using FluentValidation;
 using Microshop.Catalog.Domain.Entities;
 using Microshop.Catalog.Domain.Validators;
 using Microshop.Catalog.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Micrsoshop.Catalog.Application.Dtos.Product;
 using Micrsoshop.Catalog.Application.Interfaces;
 
 namespace Microshop.Catalog.Presentation.Controllers;
@@ -14,34 +16,37 @@ public class ProductController : ControllerBase
 
    private readonly IProductRepository _repository;
    private readonly IValidator<Product>  _validator;
+   private readonly IMapper _mapper;
    
-   public ProductController(IProductRepository repository, IValidator<Product> validator)
+   public ProductController(IProductRepository repository, IValidator<Product> validator, IMapper mapper)
    {
       _repository = repository;
       _validator = validator;
+      _mapper = mapper;
    }
 
    [HttpGet]
-   public async Task<IActionResult> GetAllProductAsync()
+   public async Task<ActionResult<IEnumerable<ProductReadDto>>> GetAllProductAsync()
    {
       var products = await _repository.GetAllAsync();
       if (products == null)
          return NotFound();
-      return Ok(products);
+      return Ok(_mapper.Map<IEnumerable<ProductReadDto>>(products));
    }
-
-
+   
    [HttpPost]
-   public async Task<ActionResult<Product>> AddProductAsync(Product product)
+   public async Task<ActionResult<ProductReadDto>> AddProductAsync(ProductCreateDto product)
    {
       if(!ModelState.IsValid)
          return BadRequest();
       
-      var validationResult = await _validator.ValidateAsync(product);
+      var model = _mapper.Map<Product>(product);
+      
+      var validationResult = await _validator.ValidateAsync(model);
       if(!validationResult.IsValid)
          return BadRequest(Results.ValidationProblem(validationResult.ToDictionary()));
 
-      var response = await _repository.CreateAsync(product);
+      var response = await _repository.CreateAsync(model);
       if (response.Flag is true)
          return Ok(response);
       else
@@ -49,25 +54,31 @@ public class ProductController : ControllerBase
    }
 
    [HttpGet("{id:guid}")]
-   public async Task<ActionResult<Product>> GetProductAsync(Guid id)
+   public async Task<ActionResult<ProductReadDto>> GetProductAsync(Guid id)
    {
       var product = await _repository.FindByIdAsync(id);
       if (product == null)
          return NotFound();
-      return Ok(product);
+      return Ok(_mapper.Map<ProductReadDto>(product));
    }
 
    [HttpPut("{id:guid}")]
-   public async Task<ActionResult<Product>> UpdateProductAsync(Guid id, Product product)
+   public async Task<ActionResult<ProductReadDto>> UpdateProductAsync(Guid id, ProductCreateDto product)
    {
-      var  validatorsResult = await _validator.ValidateAsync(product);
-      if(!validatorsResult.IsValid)
-         return BadRequest(Results.ValidationProblem(validatorsResult.ToDictionary()));
+      if (!ModelState.IsValid)
+         return BadRequest();
+      
       var dbProduct = await _repository.FindByIdAsync(id);
-        
       if(dbProduct == null)
          return NotFound();
-        
+      
+      _mapper.Map(product, dbProduct);
+      dbProduct.UpdatedAt = DateTime.Now;
+      
+      var  validatorsResult = await _validator.ValidateAsync(dbProduct);
+      if(!validatorsResult.IsValid)
+         return BadRequest(Results.ValidationProblem(validatorsResult.ToDictionary()));
+      
       var response = await _repository.UpdateAsync(dbProduct);
         
       if(response.Flag is true)
