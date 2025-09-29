@@ -1,0 +1,44 @@
+2025-36-29 21:36:21.813 +02:00 [{Level:u3] Missing type map configuration or unsupported mapping.
+
+Mapping types:
+List`1 -> ProductReadDto
+System.Collections.Generic.List`1[[Microshop.Catalog.Domain.Entities.Product, Microshop.Catalog.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] -> Micrsoshop.Catalog.Application.Dtos.Product.ProductReadDto
+2025-36-29 21:36:22.118 +02:00 [{Level:u3] Missing type map configuration or unsupported mapping.
+
+Mapping types:
+List`1 -> ProductReadDto
+System.Collections.Generic.List`1[[Microshop.Catalog.Domain.Entities.Product, Microshop.Catalog.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] -> Micrsoshop.Catalog.Application.Dtos.Product.ProductReadDto
+2025-40-29 21:40:20.322 +02:00 [{Level:u3] Missing type map configuration or unsupported mapping.
+
+Mapping types:
+List`1 -> ProductReadDto
+System.Collections.Generic.List`1[[Microshop.Catalog.Domain.Entities.Product, Microshop.Catalog.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] -> Micrsoshop.Catalog.Application.Dtos.Product.ProductReadDto
+2025-40-29 21:40:20.626 +02:00 [{Level:u3] Missing type map configuration or unsupported mapping.
+
+Mapping types:
+List`1 -> ProductReadDto
+System.Collections.Generic.List`1[[Microshop.Catalog.Domain.Entities.Product, Microshop.Catalog.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] -> Micrsoshop.Catalog.Application.Dtos.Product.ProductReadDto
+2025-46-29 21:46:43.193 +02:00 [{Level:u3] Missing type map configuration or unsupported mapping.
+
+Mapping types:
+List`1 -> ProductReadDto
+System.Collections.Generic.List`1[[Microshop.Catalog.Domain.Entities.Product, Microshop.Catalog.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] -> Micrsoshop.Catalog.Application.Dtos.Product.ProductReadDto
+2025-46-29 21:46:43.390 +02:00 [{Level:u3] Missing type map configuration or unsupported mapping.
+
+Mapping types:
+List`1 -> ProductReadDto
+System.Collections.Generic.List`1[[Microshop.Catalog.Domain.Entities.Product, Microshop.Catalog.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] -> Micrsoshop.Catalog.Application.Dtos.Product.ProductReadDto
+2025-54-29 21:54:09.816 +02:00 [{Level:u3] Missing type map configuration or unsupported mapping.
+
+Mapping types:
+ProductCreateDto -> Product
+Micrsoshop.Catalog.Application.Dtos.Product.ProductCreateDto -> Microshop.Catalog.Domain.Entities.Product
+2025-54-29 21:54:09.928 +02:00 [{Level:u3] Missing type map configuration or unsupported mapping.
+
+Mapping types:
+ProductCreateDto -> Product
+Micrsoshop.Catalog.Application.Dtos.Product.ProductCreateDto -> Microshop.Catalog.Domain.Entities.Product
+2025-09-29 23:09:29.269 +02:00 [{Level:u3] A possible object cycle was detected. This can either be due to a cycle or if the object depth is larger than the maximum allowed depth of 32. Consider using ReferenceHandler.Preserve on JsonSerializerOptions to support cycles. Path: $.Products.Category.Products.Category.Products.Category.Products.Category.Products.Category.Products.Category.Products.Category.Products.Category.Products.Category.Products.Category.Id.
+2025-09-29 23:09:29.380 +02:00 [{Level:u3] A possible object cycle was detected. This can either be due to a cycle or if the object depth is larger than the maximum allowed depth of 32. Consider using ReferenceHandler.Preserve on JsonSerializerOptions to support cycles. Path: $.Products.Category.Products.Category.Products.Category.Products.Category.Products.Category.Products.Category.Products.Category.Products.Category.Products.Category.Products.Category.Id.
+2025-14-29 23:14:47.820 +02:00 [{Level:u3] A possible object cycle was detected. This can either be due to a cycle or if the object depth is larger than the maximum allowed depth of 32. Consider using ReferenceHandler.Preserve on JsonSerializerOptions to support cycles. Path: $.Products.Category.Products.Category.Products.Category.Products.Category.Products.Category.Products.Category.Products.Category.Products.Category.Products.Category.Products.Category.Id.
+2025-14-29 23:14:47.864 +02:00 [{Level:u3] A possible object cycle was detected. This can either be due to a cycle or if the object depth is larger than the maximum allowed depth of 32. Consider using ReferenceHandler.Preserve on JsonSerializerOptions to support cycles. Path: $.Products.Category.Products.Category.Products.Category.Products.Category.Products.Category.Products.Category.Products.Category.Products.Category.Products.Category.Products.Category.Id.
