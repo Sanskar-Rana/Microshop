@@ -16,14 +16,13 @@ public class CategoryController : ControllerBase
 {
     private readonly ICategoryRepository _repository;
     private readonly IValidator<Category> _validator;
-    private readonly IValidator<CategoryCreateDto> _validatorCategoryReadDto;
     private readonly IMapper _mapper;
-    public CategoryController(ICategoryRepository repository, IValidator<Category> validator, IMapper mapper, IValidator<CategoryCreateDto> validatorCategoryReadDto)
+    public CategoryController(ICategoryRepository repository, IValidator<Category> validator, IMapper mapper)
     {
         _repository = repository;
         _validator = validator;
         _mapper = mapper;
-        _validatorCategoryReadDto = validatorCategoryReadDto;
+        
     }
 
     [HttpGet]
