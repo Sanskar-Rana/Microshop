@@ -20,7 +20,7 @@ public class CategoryRepository : ICategoryRepository
     {
         try
         {
-            var category = await _dbContext.Categories.Where(predicate).FirstOrDefaultAsync();
+            var category = await _dbContext.Categories.Where(predicate).Include(p => p.Products).FirstOrDefaultAsync();
             return category is not null ? category : null!;
         }
         catch (Exception ex)
@@ -34,7 +34,7 @@ public class CategoryRepository : ICategoryRepository
     {
         try
         {
-            var categories = await _dbContext.Categories.AsNoTracking().ToListAsync();
+            var categories = await _dbContext.Categories.AsNoTracking().Include(p => p.Products).ToListAsync();
             return categories is not null ? categories : null!;
         }
         catch (Exception ex)
@@ -48,7 +48,7 @@ public class CategoryRepository : ICategoryRepository
     {
         try
         {
-            var category = await _dbContext.Categories.FirstOrDefaultAsync(x => x.Id == id);
+            var category = await _dbContext.Categories.Include(p => p.Products).FirstOrDefaultAsync(p => p.Id == id);
             return category is not null ? category : null!;
         }
         catch (Exception ex)
