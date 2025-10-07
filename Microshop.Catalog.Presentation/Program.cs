@@ -1,13 +1,17 @@
 using System.Security.Claims;
 using System.Text;
 using FluentValidation;
+using HealthChecks.UI.Client;
+using HealthChecks.UI.Configuration;
 using Microshop.Catalog.Domain.Entities;
 using Microshop.Catalog.Domain.Validators;
 using Microshop.Catalog.Infrastructure.Data;
 using Microshop.Catalog.Infrastructure.DepedencyInjection;
 using Microshop.Catalog.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
 using Micrsoshop.Catalog.Application.Dtos.Category;
 using Micrsoshop.Catalog.Application.Interfaces;
@@ -89,9 +93,18 @@ builder.Services.AddAuthentication(opts =>
 
 builder.Services.AddSingleton(tokenValidation);
 
+//Health Check
+builder.Services.AddHealthChecks()
+    .AddSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), healthQuery: "select 1", name: "SQL Server", failureStatus: HealthStatus.Unhealthy);
 
-
-
+//HealthCheck UI
+builder.Services.AddHealthChecksUI(opts =>
+{
+    opts.SetEvaluationTimeInSeconds(15);
+    opts.MaximumHistoryEntriesPerEndpoint(60);
+    opts.SetApiMaxActiveRequests(1);
+    opts.AddHealthCheckEndpoint("feedback api", "/api/health");
+}) .AddInMemoryStorage();
 
 //builder.Services.AddScoped<IProductRepository, ProductRepository>();
 //builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
@@ -116,5 +129,16 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHealthChecks("/api/health", new HealthCheckOptions()
+{
+    Predicate = _ => true,
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
+
+app.UseHealthChecksUI(delegate(Options options)
+{
+    options.UIPath = "/healthcheck-ui";
+   
+});
 
 app.Run();
