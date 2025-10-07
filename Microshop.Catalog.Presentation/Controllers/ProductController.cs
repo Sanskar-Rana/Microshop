@@ -3,6 +3,7 @@ using FluentValidation;
 using Microshop.Catalog.Domain.Entities;
 using Microshop.Catalog.Domain.Validators;
 using Microshop.Catalog.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Micrsoshop.Catalog.Application.Dtos.Product;
 using Micrsoshop.Catalog.Application.Interfaces;
@@ -63,6 +64,7 @@ public class ProductController : ControllerBase
    }
 
    [HttpPut("{id:guid}")]
+   [Authorize(Roles = "Admin")]
    public async Task<ActionResult<ProductReadDto>> UpdateProductAsync(Guid id, ProductCreateDto product)
    {
       if (!ModelState.IsValid)
@@ -90,6 +92,7 @@ public class ProductController : ControllerBase
    }
 
    [HttpDelete("{id:guid}")]
+   [Authorize(Roles = "Admin")]
    public async Task<IActionResult> DeleteProductAsync(Guid id)
    {
       var product = await _repository.FindByIdAsync(id);

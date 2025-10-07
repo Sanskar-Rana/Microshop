@@ -3,6 +3,7 @@ using FluentValidation;
 using Microshop.Catalog.Domain.Entities;
 using Microshop.Catalog.Domain.Validators;
 using Microshop.Catalog.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Micrsoshop.Catalog.Application.Dtos.Category;
@@ -12,6 +13,7 @@ namespace Microshop.Catalog.Presentation.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+
 public class CategoryController : ControllerBase
 {
     private readonly ICategoryRepository _repository;
@@ -26,6 +28,7 @@ public class CategoryController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin,User")]
     public async Task<ActionResult<IEnumerable<CategoryReadDto>>> GetAllCategoryAsync()
     {
         var categories = await _repository.GetAllAsync();
@@ -35,6 +38,7 @@ public class CategoryController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<CategoryCreateDto>> AddCategoryAsync(CategoryCreateDto category)
     {
         if(!ModelState.IsValid)
@@ -69,6 +73,7 @@ public class CategoryController : ControllerBase
     }
 
     [HttpPut("{id:guid}")]
+   [Authorize(Roles = "Admin,User")]
     public async Task<ActionResult<CategoryCreateDto>> UpdateCategoryAsync(Guid id, CategoryCreateDto category)
     {
         if (!ModelState.IsValid)
@@ -94,6 +99,7 @@ public class CategoryController : ControllerBase
     }
 
     [HttpDelete("{id:guid}")]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<Category>> DeleteCategoryAsync(Guid id)
     {
         var category = await _repository.FindByIdAsync(id);
