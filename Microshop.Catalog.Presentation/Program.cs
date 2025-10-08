@@ -7,6 +7,7 @@ using Microshop.Catalog.Domain.Entities;
 using Microshop.Catalog.Domain.Validators;
 using Microshop.Catalog.Infrastructure.Data;
 using Microshop.Catalog.Infrastructure.DepedencyInjection;
+using Microshop.Catalog.Infrastructure.DependencyInjection;
 using Microshop.Catalog.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -24,6 +25,7 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddHealthCheckService(builder.Configuration);
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(opts =>
@@ -93,6 +95,7 @@ builder.Services.AddAuthentication(opts =>
 
 builder.Services.AddSingleton(tokenValidation);
 
+/*
 builder.Services.Configure<MemoryCheckOptions>("Feedback Service Memory Check", opts =>
 {
     opts.Threshold = 1_000_000_000;
@@ -111,7 +114,7 @@ builder.Services.AddHealthChecksUI(opts =>
     opts.MaximumHistoryEntriesPerEndpoint(60);
     opts.SetApiMaxActiveRequests(1);
     opts.AddHealthCheckEndpoint("feedback api", "/api/health");
-}) .AddInMemoryStorage();
+}) .AddInMemoryStorage();*/
 
 //builder.Services.AddScoped<IProductRepository, ProductRepository>();
 //builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
@@ -136,6 +139,10 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseHealthCheckService();
+
+/*
 app.MapHealthChecks("/api/health", new HealthCheckOptions()
 {
     Predicate = _ => true,
@@ -151,6 +158,6 @@ app.UseHealthChecksUI(delegate(Options options)
 {
     options.UIPath = "/healthcheck-ui";
    
-});
+});*/
 
 app.Run();

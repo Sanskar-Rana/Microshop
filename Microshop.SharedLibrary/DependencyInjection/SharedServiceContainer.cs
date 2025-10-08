@@ -26,22 +26,7 @@ public static class SharedServiceContainer
             .CreateLogger();
 
         
-        services.AddHealthChecks()
-            .AddSqlServer(configuration.GetConnectionString("DefaultConnection"),
-                healthQuery: "select 1", name: "SQL Server", failureStatus: HealthStatus.Unhealthy, tags: new[]{"Feedback", "Database"})
-            .AddCheck<RemoteHealthCheck>("Remote Endpoints Health Check", failureStatus: HealthStatus.Unhealthy)
-            .AddCheck<MemoryHealthCheck>("Feedback Service Memory Check", failureStatus: HealthStatus.Unhealthy, tags: new[]{"Feedback Service"})
-            .AddUrlGroup(new Uri("http://localhost:5095/api/health/self"),name: "base URL", failureStatus: HealthStatus.Unhealthy);
-//HealthCheck UI
-        
-        services.AddHealthChecksUI(opts =>
-        {
-            opts.SetEvaluationTimeInSeconds(10);
-            opts.MaximumHistoryEntriesPerEndpoint(60);
-            opts.SetApiMaxActiveRequests(1);
-            opts.AddHealthCheckEndpoint("feedback", "/api/health");
-        }).AddInMemoryStorage();
-        
+       
 
         return services;
     }
