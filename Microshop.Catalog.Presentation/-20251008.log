@@ -1,0 +1,7 @@
+2025-09-08 21:09:05.818 +02:00 [{Level:u3] Hello from Serilog with ElasticSearch!
+2025-10-08 21:17:17.354 +02:00 [INF] Hello from Serilog with ElasticSearch!
+2025-10-08 21:18:09.577 +02:00 [INF] Hello from Serilog with ElasticSearch!
+2025-10-08 21:29:03.593 +02:00 [INF] Hello from Serilog with ElasticSearch!
+2025-10-08 22:08:12.224 +02:00 [INF] Hello from Serilog with ElasticSearch!
+2025-10-08 23:23:52.617 +02:00 [INF] The request was canceled due to the configured HttpClient.Timeout of 100 seconds elapsing.
+2025-10-08 23:23:52.844 +02:00 [WRN] The request was canceled due to the configured HttpClient.Timeout of 100 seconds elapsing.

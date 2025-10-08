@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,6 +58,10 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddSingleton(tokenValidation);
 builder.Services.AddScoped< IApplicationUserRepository, ApplicationUserRepository>();
+
+
+
+    
 
 
 var app = builder.Build();
