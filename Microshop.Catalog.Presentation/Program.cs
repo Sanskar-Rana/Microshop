@@ -95,26 +95,6 @@ builder.Services.AddAuthentication(opts =>
 
 builder.Services.AddSingleton(tokenValidation);
 
-/*
-builder.Services.Configure<MemoryCheckOptions>("Feedback Service Memory Check", opts =>
-{
-    opts.Threshold = 1_000_000_000;
-});
-
-//Health Check
-builder.Services.AddHealthChecks()
-    .AddSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), healthQuery: "select 1", name: "SQL Server", failureStatus: HealthStatus.Unhealthy)
-    .AddCheck<RemoteHealthCheck>("Remote Endpoints Health Check", failureStatus: HealthStatus.Unhealthy)
-    .AddCheck<MemoryHealthCheck>("Feedback Service Memory Check", failureStatus: HealthStatus.Unhealthy, tags: new[]{"Feedback Service"})
-    .AddUrlGroup(new Uri("http://localhost:5095/api/health/self"),name: "base URL", failureStatus: HealthStatus.Unhealthy);
-//HealthCheck UI
-builder.Services.AddHealthChecksUI(opts =>
-{
-    opts.SetEvaluationTimeInSeconds(15);
-    opts.MaximumHistoryEntriesPerEndpoint(60);
-    opts.SetApiMaxActiveRequests(1);
-    opts.AddHealthCheckEndpoint("feedback api", "/api/health");
-}) .AddInMemoryStorage();*/
 
 //builder.Services.AddScoped<IProductRepository, ProductRepository>();
 //builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
@@ -142,22 +122,6 @@ app.MapControllers();
 
 app.UseHealthCheckService();
 
-/*
-app.MapHealthChecks("/api/health", new HealthCheckOptions()
-{
-    Predicate = _ => true,
-    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-});
 
-app.MapHealthChecks("api/health/self", new HealthCheckOptions
-{
-    Predicate = _ => false
-});
-
-app.UseHealthChecksUI(delegate(Options options)
-{
-    options.UIPath = "/healthcheck-ui";
-   
-});*/
 
 app.Run();
