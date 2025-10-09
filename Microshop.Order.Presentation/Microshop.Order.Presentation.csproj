@@ -21,8 +21,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Microshop.Catalog.Infrastructure\Microshop.Catalog.Infrastructure.csproj" />
       <ProjectReference Include="..\Microshop.Order.Domain\Microshop.Order.Domain.csproj" />
+      <ProjectReference Include="..\Microshop.Order.Infrastructure\Microshop.Order.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

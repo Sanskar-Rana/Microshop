@@ -1,6 +1,8 @@
 using FluentValidation;
 using Microshop.Order.Domain.Entities;
 using Microshop.Order.Domain.Validators;
+using Microshop.Order.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,12 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
+
+//Adding database
+builder.Services.AddDbContext<AppDbContext>(opts =>
+{
+    opts.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
 
 //Validatiors
 builder.Services.AddScoped<IValidator<Order>, OrderValidator>();
