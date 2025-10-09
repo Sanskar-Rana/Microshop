@@ -1,12 +1,14 @@
 using System.Text;
 using Microshop.Authentication.Data;
 using Microshop.Authentication.Data.Model;
+using Microshop.Authentication.DependencyInjection;
 using Microshop.Authentication.Service.IRepository;
 using Microshop.Authentication.Service.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +17,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
-
+builder.Services.AddHealthCheckService(builder.Configuration);
 builder.Services.AddSwaggerGen();
 
 //Adding Database
@@ -58,8 +60,12 @@ builder.Services.AddSingleton(tokenValidation);
 builder.Services.AddScoped< IApplicationUserRepository, ApplicationUserRepository>();
 
 
-var app = builder.Build();
 
+    
+
+
+var app = builder.Build();
+app.UseHealthCheckService();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

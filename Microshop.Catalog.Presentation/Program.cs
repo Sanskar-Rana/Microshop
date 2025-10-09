@@ -1,13 +1,18 @@
 using System.Security.Claims;
 using System.Text;
 using FluentValidation;
+using HealthChecks.UI.Client;
+using HealthChecks.UI.Configuration;
 using Microshop.Catalog.Domain.Entities;
 using Microshop.Catalog.Domain.Validators;
 using Microshop.Catalog.Infrastructure.Data;
 using Microshop.Catalog.Infrastructure.DepedencyInjection;
+using Microshop.Catalog.Infrastructure.DependencyInjection;
 using Microshop.Catalog.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
 using Micrsoshop.Catalog.Application.Dtos.Category;
 using Micrsoshop.Catalog.Application.Interfaces;
@@ -16,10 +21,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddHealthCheckService(builder.Configuration);
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(opts =>
@@ -90,9 +97,6 @@ builder.Services.AddAuthentication(opts =>
 builder.Services.AddSingleton(tokenValidation);
 
 
-
-
-
 //builder.Services.AddScoped<IProductRepository, ProductRepository>();
 //builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
@@ -116,5 +120,9 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseHealthCheckService();
+
+
 
 app.Run();
