@@ -6,4 +6,15 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="Dtos\" />
+      <Folder Include="Interfaces\" />
+      <Folder Include="Profiles\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Microshop.Order.Domain\Microshop.Order.Domain.csproj" />
+      <ProjectReference Include="..\Microshop.SharedLibrary\Microshop.SharedLibrary.csproj" />
+    </ItemGroup>
+
 </Project>
